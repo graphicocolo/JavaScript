@@ -9,23 +9,16 @@
 <body>
   <h1 class="title -article">日付関連</h1>
   <section class="clm">
-    <h2 class="title -clm">本日の日付</h2>
-    <div class="item">
-      <p class="txt dateTodayYMD">年月日のみ　</p>
-      <p class="txt dateTodayAll">全て　</p>
-      <p class="txt dateTodayEYMD"></p>
-      <p class="txt dateTodayEAll"></p>
-      <p class="txt">関係ない行</p>
-      <p class="txt dateTodayEAll">2箇所目でも表示される</p>
-    </div>
-  </section>
-  <section class="clm">
     <h2 class="title -clm">現在・未来</h2>
     <div class="item">
-      <h3>毎週決まった曜日に日付更新 さらに一週間後の日付も更新</h3>
-      <p class="txt">木曜日を設定</p>
-      <p class="txt dateUpdateDW"></p>
-      <p class="txt dateAfterOW"></p>
+      <h3>常に決まった曜日の日付を取得（前後1週間ずつ取得）</h3>
+      <h4>火曜日を設定</h4>
+      <p class="txt">今週の火曜</p>
+      <p id="dayOfThisWeek" class="txt"></p>
+      <p class="txt">先週の火曜</p>
+      <p class="txt dayOfPrevWeek"></p>
+      <p class="txt">来週の火曜</p>
+      <p class="txt dayOfNextWeek"></p>
     </div>
   </section>
   <script src="date.js"></script>
