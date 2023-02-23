@@ -28,9 +28,9 @@ const dateFunc = (() => {
   const displayNextUpdatedDay = document.querySelectorAll('.nextUpdateDay');
 
   // 1. 日本語表記でフォーマットされた日付を返す
-  const formattedDate = (beforedDate) => {
+  const formattedDate = (beforeDate) => {
     const options = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' };
-    return beforedDate.toLocaleDateString('ja-JP', options);
+    return beforeDate.toLocaleDateString('ja-JP', options);
   }
 
   // 2. 今週の○曜日を取得
