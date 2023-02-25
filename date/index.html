@@ -14,16 +14,28 @@
       <h3>水曜日を設定</h3>
       <p class="txt">今週の水曜</p>
       <p class="txt dayOfThisWeek"></p>
+      <!-- 複数箇所表示可能 -->
+      <!-- <p class="txt dayOfThisWeek"></p>
+      <p class="txt dayOfThisWeek"></p> -->
       <p class="txt">先週の水曜</p>
       <p class="txt dayOfPrevWeek"></p>
+      <!-- <p class="txt dayOfPrevWeek"></p>
+      <p class="txt dayOfPrevWeek"></p> -->
       <p class="txt">来週の水曜</p>
       <p class="txt dayOfNextWeek"></p>
+      <!-- <p class="txt dayOfNextWeek"></p>
+      <p class="txt dayOfNextWeek"></p> -->
     </div>
     <div class="item">
       <h2 class="title -clm">○曜日に「更新日：○年○月○日（○）」「次回更新日：○年○月○日（○）」を更新（決まった曜日）</h2>
-      <p class="txt updatedDay">更新日：</p>
-      <p class="txt nextUpdateDay">次回更新日：</p>
+      <!-- 更新日の曜日を data-dayofweek で設定 -->
+      <!-- 日曜日0、月曜日1、火曜日2、水曜日3、木曜日4、金曜日5、土曜日6 -->
+      <p id="updatedDay" class="txt" data-dayofweek="5">更新日：</p>
+      <p id="nextUpdateDay" class="txt">次回更新日：</p>
     </div>
+    <!-- <div class="item">
+      <div id="testItem" data-val="abc"></div>
+    </div> -->
   </section>
   <script src="date.js"></script>
 </body>

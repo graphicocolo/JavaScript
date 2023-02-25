@@ -5,6 +5,8 @@ const dateFunc = (() => {
   // 3. ○曜日に「更新日：○年○月○日（○）」「次回更新日：○年○月○日（○）」を更新（決まった曜日に更新）
 
   // 課題：HTML から曜日の設定を可能にしたい
+  // data 属性を利用する（HTML5）
+  // https://developer.mozilla.org/ja/docs/Learn/HTML/Howto/Use_data_attributes
 
   // ベースの日付
   const today = new Date();
@@ -17,15 +19,15 @@ const dateFunc = (() => {
 
   // 表示要素
   // 今週の○曜
-  const displayDayOfThisWeek = document.querySelectorAll('.dayOfThisWeek');
+  const elmDayOfThisWeek = document.querySelectorAll('.dayOfThisWeek');
   // 先週の○曜
-  const displayDayOfPrevWeek = document.querySelectorAll('.dayOfPrevWeek');
+  const elmDayOfPrevWeek = document.querySelectorAll('.dayOfPrevWeek');
   // 来週の○曜
-  const displayDayOfNextWeek = document.querySelectorAll('.dayOfNextWeek');
+  const elmDayOfNextWeek = document.querySelectorAll('.dayOfNextWeek');
   // 更新日
-  const displayUpdatedDay = document.querySelectorAll('.updatedDay');
+  const elmUpdatedDay = document.getElementById('updatedDay');
   // 次回更新日
-  const displayNextUpdatedDay = document.querySelectorAll('.nextUpdateDay');
+  const elmNextUpdatedDay = document.getElementById('nextUpdateDay');
 
   // 1. 日本語表記でフォーマットされた日付を返す
   const formattedDate = (beforeDate) => {
@@ -36,6 +38,11 @@ const dateFunc = (() => {
   // 2. 今週の○曜日を取得
   // 求めたい曜日に応じて引数 number に、0から6の間の数字を足す
   // 日曜日0、月曜日1、火曜日2、水曜日3、木曜日4、金曜日5、土曜日6
+  const basisDayOfWeek = 3;
+
+  // HTML ファイル内の複数箇所で今週の○曜日の日付を表示させたい場合は、class を指定した要素を使う
+  // HTML ファイルから曜日を指定したい場合は、id を指定した要素を使う（ただし、複数箇所での表示は無理）
+
   const getDateBaseDayOfThisWeek = (number) => {
     const dateBaseDayOfThisWeek = new Date(today.getTime());
     // 目的の今週の曜日の日付
@@ -43,7 +50,7 @@ const dateFunc = (() => {
     return formattedDate(dateBaseDayOfThisWeek);
   }
   // 変数に入れると使い回し可能
-  const dayOfThisWeek = getDateBaseDayOfThisWeek(4);
+  const dayOfThisWeek = getDateBaseDayOfThisWeek(basisDayOfWeek);
 
   // 2. 先週の○曜日を取得
   // 求めたい曜日に応じて引数 number に、0から6の間の数字を足す
@@ -55,7 +62,7 @@ const dateFunc = (() => {
     return formattedDate(dateBaseDayOfPrevWeek);
   }
   // 変数に入れると使い回し可能
-  const dayOfPrevWeek = getDateBaseDayOfPrevWeek(4);
+  const dayOfPrevWeek = getDateBaseDayOfPrevWeek(basisDayOfWeek);
 
   // 2. 来週の○曜日を取得
   // 求めたい曜日に応じて引数 number に、0から6の間の数字を足す
@@ -67,20 +74,20 @@ const dateFunc = (() => {
     return formattedDate(dateBaseDayOfNextWeek);
   }
   // 変数に入れると使い回し可能
-  const dayOfNextWeek = getDateBaseDayOfNextWeek(4);
+  const dayOfNextWeek = getDateBaseDayOfNextWeek(basisDayOfWeek);
 
   // 2. 今週の○曜日を表示
-  displayDayOfThisWeek.forEach((thisDateItem) => {
+  elmDayOfThisWeek.forEach((thisDateItem) => {
     thisDateItem.append(dayOfThisWeek);
   });
 
   // 2. 先週の○曜日を表示
-  displayDayOfPrevWeek.forEach((prevDateItem) => {
+  elmDayOfPrevWeek.forEach((prevDateItem) => {
     prevDateItem.append(dayOfPrevWeek);
   });
 
   // 2. 来週の○曜日を表示
-  displayDayOfNextWeek.forEach((nextDateItem) => {
+  elmDayOfNextWeek.forEach((nextDateItem) => {
     nextDateItem.append(dayOfNextWeek);
   });
 
@@ -90,30 +97,27 @@ const dateFunc = (() => {
 
   // 更新日の曜日を設定
   // 日曜日0、月曜日1、火曜日2、水曜日3、木曜日4、金曜日5、土曜日6
-  const updatedDayOfWeek = 6;
+  const updatedDayOfWeek = parseInt(elmUpdatedDay.dataset.dayofweek);
   // 今日の曜日を取得（0〜6の値で取得される）
   const todayDayOfWeek = new Date(today.getTime()).getDay();
+
   // 今週の更新日を取得
   const updatedDateDayOfThisWeek = getDateBaseDayOfThisWeek(updatedDayOfWeek);
   // 先週の更新日を取得
   const updatedDateDayOfPrevWeek = getDateBaseDayOfPrevWeek(updatedDayOfWeek);
-  // 今週の更新日を取得
+  // 来週の更新日を取得
   const updatedDateDayOfNextWeek = getDateBaseDayOfNextWeek(updatedDayOfWeek);
 
   if (updatedDayOfWeek > todayDayOfWeek) {
-    displayUpdatedDay.forEach((prevThisItem) => {
-      prevThisItem.append(updatedDateDayOfPrevWeek);
-    });
-    displayNextUpdatedDay.forEach((thisDateItem) => {
-      thisDateItem.append(updatedDateDayOfThisWeek);
-    });
+    const addTextUpdated = document.createTextNode(updatedDateDayOfPrevWeek);
+    const addTextNextUpdated = document.createTextNode(updatedDateDayOfThisWeek);
+    elmUpdatedDay.appendChild(addTextUpdated);
+    elmNextUpdatedDay.appendChild(addTextNextUpdated);
   } else {
-    displayUpdatedDay.forEach((nextThisItem) => {
-      nextThisItem.append(updatedDateDayOfThisWeek);
-    });
-    displayNextUpdatedDay.forEach((nextDateItem) => {
-      nextDateItem.append(updatedDateDayOfNextWeek);
-    });
+    const addTextUpdated = document.createTextNode(updatedDateDayOfThisWeek);
+    const addTextNextUpdated = document.createTextNode(updatedDateDayOfNextWeek);
+    elmUpdatedDay.appendChild(addTextUpdated);
+    elmNextUpdatedDay.appendChild(addTextNextUpdated);
   }
 
 })();
