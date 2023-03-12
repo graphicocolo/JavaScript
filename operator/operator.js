@@ -1,4 +1,9 @@
 /*
+[式と演算子](https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Expressions_and_Operators)
+[演算子](https://jsprimer.net/basic/operator/)
+ */
+
+/*
   後置インクリメント
  */
 

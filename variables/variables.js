@@ -1,4 +1,9 @@
 /*
+[変数と宣言](https://jsprimer.net/basic/variables/)
+[変数](https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Grammar_and_types#%E5%A4%89%E6%95%B0)
+ */
+
+/*
   const
  */
 
