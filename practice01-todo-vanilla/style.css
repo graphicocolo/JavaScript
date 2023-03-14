@@ -1,0 +1,78 @@
+@charset "UTF-8";
+
+input[type=text] {
+  padding: 0.5rem 0.8rem;
+  outline: none;
+}
+
+button {
+  border-radius: 20px;
+  border: none;
+  padding: 0.5rem 0.8rem;
+  width: 80px;
+}
+button:hover {
+  background-color: #d9874d;
+  color: #ffffff;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.clm {
+  width: 90%;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.input-area {
+  background-color: #c1ffff;
+  margin-bottom: 2rem;
+}
+
+.incomplete-area {
+  background-color: #c6ffe2;
+  margin-bottom: 2rem;
+}
+
+.complete-area {
+  background-color: #ffffe0;
+}
+
+.title {
+  text-align: center;
+  color: #333;
+  margin-top: 0px;
+}
+
+.todo-list {
+  list-style: none;
+}
+
+.todo-list li > div {
+  padding-bottom: 0.8rem;
+}
+
+@media (min-width: 768px) {
+  .todo-list li > div {
+    padding-bottom: 0rem;
+  }
+}
+
+.todo-list.doing li {
+  border-bottom: solid 1px #9ef3c8;
+}
+
+.todo-list.done li {
+  border-bottom: solid 1px #eeee93;
+}
+
+.todo-list li:last-child {
+  border-bottom: none;
+}
+
+@media (min-width: 768px) {
+  .todo-title {
+    display: inline-block;
+    padding-right: 1rem;
+  }
+}
