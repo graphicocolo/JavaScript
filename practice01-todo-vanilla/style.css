@@ -11,11 +11,13 @@ button {
   padding: 0.5rem 0.8rem;
   width: 80px;
 }
-button:hover {
-  background-color: #d9874d;
-  color: #ffffff;
-  cursor: pointer;
-  transition: 0.4s;
+@media (min-width: 768px) {
+  button:hover {
+    background-color: #d9874d;
+    color: #ffffff;
+    cursor: pointer;
+    transition: 0.4s;
+  }
 }
 
 .clm {
@@ -42,6 +44,12 @@ button:hover {
   text-align: center;
   color: #333;
   margin-top: 0px;
+}
+.title.doing {
+  color: #1e974c;
+}
+.title.done {
+  color: #e4bd11;
 }
 
 .todo-list {

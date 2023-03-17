@@ -10,13 +10,13 @@
 <body>
   <h1>TODO リスト</h1>
   <div class="clm input-area">
-    <input type="text" placeholder="TODO を入力">
-    <button>追加</button>
+    <input type="text" placeholder="TODO を入力" id="addTask">
+    <button id="addButton">追加</button>
   </div>
   <div class="clm incomplete-area">
-    <h2 class="title">未完了の TODO</h2>
+    <h2 class="title doing">未完了の TODO</h2>
     <ul class="todo-list doing">
-      <li>
+      <li class="taskItem">
         <div>
           <p class="todo-title">TODO1です。長文です。</p>
           <button>完了</button>
@@ -40,7 +40,7 @@
     </ul>
   </div>
   <div class="clm complete-area">
-    <h2 class="title">完了した TODO</h2>
+    <h2 class="title done">完了した TODO</h2>
     <ul class="todo-list done">
       <li>
         <div>
