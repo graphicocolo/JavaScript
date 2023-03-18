@@ -66,6 +66,10 @@ button {
   }
 }
 
+.todo-list li > div > :last-child {
+  margin-left: 0.5rem;
+}
+
 .todo-list.doing li {
   border-bottom: solid 1px #9ef3c8;
 }

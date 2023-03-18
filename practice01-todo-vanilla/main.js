@@ -32,7 +32,11 @@ const onClickAdd = () => {
   doneButton.addEventListener('click', () => alert('完了'));
   const deleteButton = document.createElement('button');
   deleteButton.innerText = '削除';
-  deleteButton.addEventListener('click', () => alert('削除'));
+  deleteButton.addEventListener('click', () => {
+    // 削除ボタンがクリックされたら未完了リストから親要素 li を削除
+    const deleteTarget = deleteButton.closest('li');
+    doingTaskLists.removeChild(deleteTarget);
+  });
 
   // div 要素の配下に子要素(p、button)を配置
   preTaskContentElm.appendChild(preTaskTextElm);
