@@ -26,11 +26,21 @@ const onClickAdd = () => {
   // ユーザーが入力したテキスト内容を要素の中に追加
   preTaskTextElm.innerText = taskContent;
 
-  // div 要素の子要素に p 要素を配置
+  // 「完了」「削除」ボタンを生成
+  const doneButton = document.createElement('button');
+  doneButton.innerText = '完了';
+  doneButton.addEventListener('click', () => alert('完了'));
+  const deleteButton = document.createElement('button');
+  deleteButton.innerText = '削除';
+  deleteButton.addEventListener('click', () => alert('削除'));
+
+  // div 要素の配下に子要素(p、button)を配置
   preTaskContentElm.appendChild(preTaskTextElm);
+  preTaskContentElm.appendChild(doneButton);
+  preTaskContentElm.appendChild(deleteButton);
   
   // 未完了の TODO 内の ul 要素の子要素に li 要素を配置
   doingTaskLists.appendChild(preTaskElm);
 }
 
-addButton.addEventListener(('click'), () => onClickAdd());
+addButton.addEventListener('click', () => onClickAdd());
