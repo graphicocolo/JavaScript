@@ -94,6 +94,19 @@ const checkSum = (sumVal1, sumVal2) => {
 console.log(checkSum(50, 60));
 
 /*
+  Null 合体演算子
+ */
+const value1 = null;
+const value2 = "Hello";
+
+const result1 = value1 ?? "Default value"; // "Default value" が代入される
+const result2 = value2 ?? "Default value"; // "Hello" が代入される
+
+console.log(result1); // "Default value"
+console.log(result2); // "Hello"
+
+
+/*
   分割代入
  */
 // 配列を分割代入
@@ -135,12 +148,12 @@ const valB = 10;
 const valC = null;
 
 // a が truthy なので a の値が代入される
-const result1 = valA || valB;
-console.log(result1); // 5
+const result3 = valA || valB;
+console.log(result3); // 5
 
 // a が falsy なので b の値が代入される
-const result2 = valC || valB;
-console.log(result2); // 10
+const result4 = valC || valB;
+console.log(result4); // 10
 
 console.log(false || false); // false
 
