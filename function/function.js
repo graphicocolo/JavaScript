@@ -185,3 +185,20 @@ const array = [1, 2];
 displaySum(array[0], array[1]); // 3
 // スプレッド構文を用いた場合
 displaySum(...array); // 3
+
+/*
+  関数はオブジェクト
+ */
+// 関数はプリミティブ型ではないため、オブジェクトである
+// また、実行可能なオブジェクトである
+  const display = () => {
+    console.log('function');
+  }
+  display.prop = 0;
+  display.method = () => {
+    console.log('method');
+  }
+  // () をつけることで実行される
+  display();
+  console.log(display.prop);
+  display.method();
