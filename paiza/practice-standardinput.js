@@ -95,5 +95,10 @@ reader.on('close', () => {
   // }
 
   // 3つのデータの入力
-  
+  const datas = lines[0].split(' ');
+  datas.map((data) => {
+    if ((0 < data.length) && (data.length <= 100) && (data.match(/^[A-Za-z0-9]*$/))) {
+      console.log(data);
+    }
+  });
 });
