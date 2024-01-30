@@ -123,5 +123,13 @@ reader.on('close', () => {
     }
   });
 
-  // 
+  // カンマ区切りのN個のデータの入力
+  const pendingDatas3 = lines[1].split(','); // 出力データ
+  pendingDatas3.map((data) => {
+    if ((0 < data.length) && (data.length <= 100) && (data.match(/^[A-Za-z0-9]*$/))) {
+      console.log(data);
+    } else {
+      console.log('');
+    }
+  });
 });
