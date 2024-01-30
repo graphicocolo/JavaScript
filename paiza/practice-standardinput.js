@@ -112,4 +112,16 @@ reader.on('close', () => {
       console.log('');
     }
   });
+
+  // カンマ区切りの3つのデータの入力
+  const pendingDatas2 = lines[0].split(','); // 出力データ
+  pendingDatas2.map((data) => {
+    if ((0 < data.length) && (data.length <= 100) && (data.match(/^[A-Za-z0-9]*$/))) {
+      console.log(data);
+    } else {
+      console.log('');
+    }
+  });
+
+  // 
 });
