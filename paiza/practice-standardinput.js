@@ -101,4 +101,15 @@ reader.on('close', () => {
       console.log(data);
     }
   });
+
+  // N個のデータの入力
+  const linesLength = Number(lines[0]); // 出力行数
+  const pendingDatas = lines[1].split(' '); // 出力データ
+  pendingDatas.map((data) => {
+    if ((0 < data.length) && (data.length <= 100) && (data.match(/^[A-Za-z0-9]*$/))) {
+      console.log(data);
+    } else {
+      console.log('');
+    }
+  });
 });
