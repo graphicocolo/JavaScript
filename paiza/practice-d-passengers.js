@@ -6,6 +6,9 @@
 // 【JavaScript】some()で配列に条件を満たす要素が存在するか判定する
 // https://into-the-program.com/javascript-some-check-element-condition-exist-array/
 
+// Array.prototype.every()
+// https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/every
+
 // paiza.io で確認済み
 // https://paiza.io/ja
 
