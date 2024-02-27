@@ -6,6 +6,9 @@
 // paiza.io で確認済み
 // https://paiza.io/ja
 
+// 次はこれ？
+// https://paiza.jp/works/mondai/forest_contest_001/problem_index?language_uid=javascript
+
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
 
