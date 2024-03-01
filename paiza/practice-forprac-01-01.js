@@ -38,6 +38,10 @@
 // すっきり書きたい JavaScriptの条件分岐
 // https://qiita.com/ist-t-s/items/e2bf11fcf1645623235f
 
+// 検査する条件があまりに多い場合、
+// 条件分岐ではなく、データ（配列やオブジェクト）から条件に適合するものを走査する
+// というアプローチの方が良い
+
 // Array.prototype.find()
 // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/find
 // Array.prototype.some()
