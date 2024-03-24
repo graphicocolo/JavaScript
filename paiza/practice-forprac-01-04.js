@@ -1,6 +1,9 @@
 // paizaの森練習問題コンテスト過去問題1 背番号順
 // https://paiza.jp/works/mondai/forest_contest_001/forest_contest_001__c_player_number/edit?language_uid=javascript
 
+// 次回
+// https://paiza.jp/works/mondai/forest_contest_002/problem_index?language_uid=javascript
+
 // n人の野球選手の名前が背番号と一緒に入力されます。
 // 各選手の背番号と名前を、背番号の数字の小さい順に並び替えて出力してください。
 // ただし、同じ背番号の選手は存在しないものとします。
@@ -65,7 +68,7 @@ reader.on('close', () => {
   // ChatGPTが書いたコード
   const nop = Number(lines[0]);
   const pairs = lines.slice(1).map(line => {
-    const [number, name] = line.split(' ');
+    const [number, name] = line.split(' '); // splitは文字列のみ使える
     // 分割された各行の最初の要素（背番号）を整数に変換し、number プロパティに代入
     // 分割された各行の2番目の要素（名前）はそのままname プロパティに代入
     // 最終的に、背番号と名前のペアを含むオブジェクトを返す
