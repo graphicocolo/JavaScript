@@ -1,6 +1,10 @@
 // paizaの森練習問題コンテスト過去問題2 セール販売 (paizaランク C 相当)
 // https://paiza.jp/works/mondai/forest_contest_002/forest_contest_002__c_sale/edit?language_uid=javascript
 
+// 機能追加1
+// 1行目で入力した数値と
+// パース後の配列データの要素数が異なっていたらコンソール出力
+
 // ある服屋さんはズボンの在庫を抱えてしまったため、以下のようなセールを行うことにしました。
 // ・ズボンを一点以上買っていて、
 // ・2000円以上お買い上げ
