@@ -36,22 +36,17 @@
 // shirt 1000
 // shoes 2000
 // shirt 500
-// 入力例2
-// 4
-// shirt 500
-// pants 1000
-// pants 500
-// shoes 2000
-// 入力例3
+
+// paiza.io
+// https://paiza.io/ja
+
+// 与えられる入力が下記の場合失敗
 // 5
 // pants 300
 // pants 300
 // pants 300
 // shoes 300
 // shoes 300
-
-// paiza.io
-// https://paiza.io/ja
 
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
@@ -65,32 +60,27 @@ reader.on('line', (line) => {
   lines.push(line);
 });
 reader.on('close', () => {
-  // 必要データ定義----------
-  // 購入総アイテム数
-  const itemTotalNumber = Number(lines[0]);
-  // 全ての商品情報を格納する配列
-  const itemTotalData = [];
-  
+
   // 1. 判定関数----------
-  // 1-1. 購入総アイテム数判定
-  const judgeItemTotalNumber = data => {
-    // 空判定
-    const isEmpty = !Number.isNaN(data) && true;
-    // 整数判定
-    const isInteger = Number.isInteger(data);
-    // 正負判定
-    const isSign = Math.sign(data) === 1 && true;
-    // 限界値判定
-    const isCorrectLimit = data >= 1 && data <= 10 && true;
-    if (isEmpty && isInteger && isSign && isCorrectLimit) {
+  // 1-1. 空データ判定
+  const isEmpty = data => data === '';
+  // 1-2. 整数判定
+  const judgeInteger = data => Number.isInteger(data);
+  // 1-3. 正負判定
+  const judgeSign = (data) => {
+    if (Math.sign(data) === 1) {
       return true;
-    } else {
+    } else if (Math.sign(data) === -1) {
       return false;
+    } else {
+      return;
     }
   }
-  // 1-2. 各購入アイテムの価格条件判定
-  const judgeItemPriceCorrectLimit = datas => datas.every(data => data.fee >= 200 && data.fee <= 4000);
-  // 1-3. 商品にpantsが含まれているかどうか
+  // 1-4. 購入総アイテム数の条件判定
+  const judgeTotalItemNumber = data => data >= 1 && data <= 10
+  // 1-5. 各購入アイテムの価格条件判定
+  const judgeItemPriceNumber = datas => datas.every(data => data.fee >= 200 && data.fee <= 4000);
+  // 1-6. 商品にpantsが含まれているかどうか
   const judgeHasPants = (datas) => {
     // 配列内の各オブジェクトを検査し、itemName プロパティが 'pants' であるかを判定
     for (const data of datas) {
@@ -100,15 +90,36 @@ reader.on('close', () => {
     }
     return false; // 'pants' が見つからなかった場合は false を返す
   }
+  // 入力行数判定
+  // 入力行数の判定は可能か？
+  // const judgeLineNumber = data => {
+  //   const judgeArr = [];
+  //   for (let i = 0; i < data; i++) {
+  //     judgeArr.push(line[1 + i].length);
+  //   }
+  //   return judgeArr;
+  // }
 
-  // 2. ユーティリティ関数----------
-  // 2-1. 2行目以降の入力データをパース
-  const parseTotalItemData = (data, arr) => {
+  // テスト
+  const inputValTotalItemNumber = data => {
+    const isEmpty = data === '' ? true : false;
+    const isInteger = Number.isInteger(data);
+    const isSign = Math.sign(data);
+    if (isEmpty && isInteger && isSign) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  // ユーティリティ関数----------
+  // 行ごとの入力データをパース
+  const parseData = (data, arr) => {
     const [itemName, feeStr] = data.split(' ');
     const fee = parseInt(feeStr);
     arr.push({ itemName, fee });
   };
-  // 2-2. 合計額算出
+  // 合計額算出
   const calcTotalFee = (datas) => {
     let baseTotalFee = 0;
     for (const data of datas) {
@@ -117,11 +128,22 @@ reader.on('close', () => {
     return baseTotalFee;
   }
 
-  if (judgeItemTotalNumber(itemTotalNumber)) {
-    for (let i = 0; i < itemTotalNumber; i++) {
-      parseTotalItemData(lines[1 + i], itemTotalData);
+  // 必要データ定義----------
+  // 購入総アイテム数
+  const totalItemNumber = Number(lines[0]);
+  // 商品入力値を格納する配列
+  const itemTotalData = [];
+
+  // まず1行目の商品点数データを適正判定
+  if (!isEmpty(totalItemNumber) && judgeInteger(totalItemNumber) && judgeSign(totalItemNumber) && judgeTotalItemNumber(totalItemNumber)) {
+    // 入力値を全てパース
+    for (let i = 0; i < totalItemNumber; i++) {
+      parseData(lines[1 + i], itemTotalData);
     }
-    if (judgeItemPriceCorrectLimit(itemTotalData)) {
+    // パース後の各商品の価格の適正判定
+    if (judgeItemPriceNumber(itemTotalData)) {
+
+      // 合計額算出
       const totalFee = calcTotalFee(itemTotalData);
 
       if (totalFee >= 2000 && judgeHasPants(itemTotalData)) {
@@ -133,6 +155,6 @@ reader.on('close', () => {
       console.log('商品の価格が適正ではありません');
     }
   } else {
-    console.log('購入する商品数が間違っています');
+    console.log('入力値が間違っています');
   }
 });
