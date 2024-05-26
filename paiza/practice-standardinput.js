@@ -3,12 +3,6 @@
 // 【JS】よく使うバリデーションまとめ
 // https://qiita.com/teshimaaaaa1101/items/1494906d04ab7c5f667d
 
-// 【JavaScript】正規表現の記号とメタ文字まとめ
-// https://codeclub965.com/?p=2062
-
-// 【JavaScript】正規表現のパターンまとめ
-// https://codeclub965.com/?p=2038
-
 // paiza.io で確認済み
 // https://paiza.io/ja
 
