@@ -131,55 +131,21 @@ reader.on('close', () => {
   // 役立つ処理など
 
   // 1. 必要値定義 ----------
+
   // 空判定のための値
   const firstLineVar = lines[0];
+
   // 入力された行数
   const numberOfLines = lines.length;
 
-  // 2. 判定 ----------
-
-  // 1行目の値が空かどうか（lines[0]）
-  const judgeEmpty = data => data === undefined && true;
-
-  // 空文字かどうか
-  const judgeNotValue = data => data === '' && true;
-
-  // 英字
-  const judgeAlp = data => data.match(/^[A-Za-z]*$/);
-
-  // 英字小文字
-  const judgeAlpLower = data => data.match(/^[a-z]*$/);
-
-  // 英字大文字
-  const judgeAlpUpper = data => data.match(/^[A-Z]*$/);
-
-  // 数字
-  // const judgeNum = data => data.match(/^[0-9]*$/) && true;
-  const judgeNum = data => data.match(/^[0-9]*$/);
-
-  // 1行目に入力された数字と、2行目以降の文字が入力されている行数が合っているかどうか
-  const judgeInputMatch = data => Number(data[0]) === Number(data.length - 1);
-
-  // 数値の上限下限判定（単一の値の場合）
-  const judgeLowHighLimit = (judgeData, lowestlimitData, highestLimitData) => {
-    const result = judgeData => judgeData >= lowestlimitData && judgeData <= highestLimitData;
-    return result;
-  }
-
-  // 数値の上限下限判定（配列の場合）
-  const arrayJudgeLowHighLimit = (judgeArrayData, lowestlimitData, highestLimitData) => {
-    const result = judgeArrayData.every(item => item >= lowestlimitData && item <= highestLimitData);
-    return result;
-  }
-
-  // 3. 処理 ----------
+  // 2. util ----------
 
   // 数字にキャスト（単一の値）
   // Number(...)でキャスト
   
   // 数字にキャスト（配列の要素全て）
   const elemToNumber = (array) => {
-    const newArray = array.map((item) => Number(item));
+    const newArray = array.map((item) => Number(item.trim(' ')));
     return newArray;
   }
 
@@ -189,27 +155,87 @@ reader.on('close', () => {
     return newArray;
   }
 
-  // アラート表示（1行目の値が空の場合）
-  if (judgeEmpty(firstLineVar)) return console.log('値を入力してください');
+  // 3. 判定関数 ----------
 
-  // アラート表示（何も入力せず改行をした場合）
-  if (lines.every(item => judgeNotValue(item))) return console.log('値を入力してください');
+  // 1行目の値が空かどうか（lines[0]）
+  const isEmpty = data => data === undefined && true;
 
-  // アラート表示（数字以外の場合）
-  if (!lines.every(item => judgeNum(item))) return console.log('数字を入力してください');
+  // 空文字かどうか
+  const isEmptyValue = data => data === '';
 
-  // アラート表示
-  // （1行目に入力された数字と、2行目以降の文字が入力されている行数が異なっている場合）
-  if (!judgeInputMatch(lines)) return console.log('正しい値を入力してください');
-  // judgeInputMatch(lines) || console.log('正しい値を入力してください');
+  // 英字
+  // const isAlp = data => data.match(/^[A-Za-z]*$/);
+  const isNotAlp = data => !/^[A-Za-z]*$/.test(data);
 
-  // アラート表示
-  // （値の数値が条件に適合しているかどうか）
-  if (!judgeLowHighLimit(firstLineVar, 1, 8)) return console.log('正しい値を入力してください');
+  // 英字小文字
+  // const isAlpLower = data => data.match(/^[a-z]*$/);
+  const isNotAlpLower = data => !/^[a-z]*$/.test(data);
 
-  // アラート表示
-  // （配列の要素の数値が条件に適合しているかどうか）
-  if (!arrayJudgeLowHighLimit(deleteElm(lines, 0), 1, 1000)) return console.log('正しい値を入力してください');
+  // 英字大文字
+  // const isAlpUpper = data => data.match(/^[A-Z]*$/);
+  const isNotAlpUpper = data => !/^[A-Z]*$/.test(data);
+
+  // 数字
+  // const judgeNum = data => data.match(/^[0-9]*$/) && true;
+  // const judgeNum = data => data.match(/^[0-9]*$/);
+  // const isNotNumber = data => !/^[0-9]*$/.test(data);
+  const isNotNumber = data => !/^\d+$/.test(data);
+
+  // 1行目に入力された数字と、2行目以降の文字が入力されている行数が合っているかどうか
+  const isNotLinesMatch = array => !(Number(array[0]) === Number(array.length - 1));
+
+  // 数値の上限下限判定（単一の値の場合）
+  const isOutOfRange = (data, min, max) => {
+    const result = data => !(data >= min && data <= max);
+    return result;
+  }
+
+  // 数値の上限下限判定（配列の場合）
+  const arrayIsOutOfRange = (array, min, max) => {
+    const result = !(array.every(item => item >= min && item <= max));
+    return result;
+  }
+
+  // 4. 条件判定関数 ----------
+  const validateInput = (lines, firstLineVar) => {
+    // アラート表示（1行目の値が空の場合）
+    if (isEmpty(firstLineVar)) return '値を入力してください';
+
+    // アラート表示（何も入力せず改行をした場合）
+    if (lines.every(item => isEmptyValue(item))) return '値を入力してください';
+
+    // アラート表示（数字以外の場合）
+    if (lines.every(item => isNotNumber(item))) return '数字を入力してください';
+
+    // 入力値が数字だった場合、キャストする
+    const numberedArray = elemToNumber(lines);
+
+    // アラート表示
+    // （1行目に入力された数字と、2行目以降の文字が入力されている行数が異なっている場合）
+    if (isNotLinesMatch(numberedArray)) return '正しい値を入力してください';
+    // judgeInputMatch(lines) || '正しい値を入力してください');
+
+    // アラート表示
+    // （値の数値が条件に適合しているかどうか）
+    if (isOutOfRange(numberedArray[0], 1, 8)) return '正しい値を入力してください';
+
+    // アラート表示
+    // （配列の要素の数値が条件に適合しているかどうか）
+    if (arrayIsOutOfRange(deleteElm(numberedArray, 0), 1, 1000)) return '正しい値を入力してください';
+
+    return ''; // 全ての条件を満たす場合は空文字を返す
+  }
   
+  // 5. 処理 ----------
+
+  // 条件判定（エラー表示）
+  const errorMessage = validateInput(lines, firstLineVar);
+  if (errorMessage !== '') return console.log(errorMessage);
+
+  // 数字にキャスト（配列の要素全て）
+  const numberedArray = elemToNumber(lines);
+
+  // 組み合わせ関数
+
 
 });

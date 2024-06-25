@@ -73,47 +73,7 @@ reader.on('line', (line) => {
   lines.push(line);
 });
 reader.on('close', () => {
-  // 1. 必要値定義 ----------
-  // 判定のための値(行数、空判定)
-  const linesJudgeVar = Number(lines[0]);
-  // 判定のための値(実際の行数)
-  const inputLinesJudgeVar = lines.length - 1;
-  // 入力値初期化
-  // for (let i = 1; i < lines.length - 1; i++) {
 
-  // }
   
-  // 2. 判定 ----------
-  // 行数限界判定
-  const judgeLinesLowLimit = lines => lines.length >= 1;
-  const judgeLinesHighLimit = lines => lines.length <= 8;
-  // 文字数限界判定
-  const judgeLineVarLowLimit = lineData => lineData >= 1;
-  const judgeLineVarHighLimit = lineData => lineData <= 1000;
-  // 行数一致判定
-  function judgeLineNumberMatch(data1, data2) {
-    if (data1 === data2) {
-      return console.log('行数に不備があります');
-    }
-  }
-
-  // 3. 関数 ----------
-  // 配列要素の文字数判定
-  function judgeDataLengthLimit(array) {
-    const resultLowLimit = array.every(judgeLineVarLowLimit);
-    const resultHighLimit = array.every(judgeLineVarHighLimit);
-    if (!(resultLowLimit && resultHighLimit)) {
-      return console.log('入力された値が適切ではありません');
-    }
-  }
-
-  // 4. 処理 ----------
-  // 空判定
-  if (judgeEmpty(linesJudgeVar)) return console.log('値を入力してください');
-  // 1行目の値の真偽判定
-  if (!(judgeLinesLowLimit(linesJudgeVar) && judgeLinesHighLimit(linesJudgeVar))) return console.log('入力された値が適切ではありません');
-  // 行数一致判定
-  judgeLineNumberMatch(linesJudgeVar, inputLinesJudgeVar);
-  // 配列要素の文字数判定
   
 });
