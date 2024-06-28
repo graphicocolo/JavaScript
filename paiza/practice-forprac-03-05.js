@@ -74,6 +74,8 @@ reader.on('line', (line) => {
 });
 reader.on('close', () => {
 
-  
+  // 1. 必要値定義 ----------
+
+
   
 });

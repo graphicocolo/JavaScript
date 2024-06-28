@@ -236,6 +236,43 @@ reader.on('close', () => {
   const numberedArray = elemToNumber(lines);
 
   // 組み合わせ関数
+  function findLuckyCombination(numbers) {
+    const targetSum = 777;
+    const n = numbers.length;
+    let foundCombination = null;
+    let multipleAnswers = false;
+  
+    // Iterate through all possible combinations using bitmask
+    for (let i = 1; i < (1 << n); i++) {
+      let sum = 0;
+      let combination = [];
+  
+      for (let j = 0; j < n; j++) {
+        if (i & (1 << j)) {
+          sum += numbers[j];
+          combination.push(numbers[j]);
+        }
+      }
+  
+      if (sum === targetSum) {
+        combination.sort((a, b) => a - b);
+        if (foundCombination === null) {
+          foundCombination = combination;
+        } else if (JSON.stringify(foundCombination) !== JSON.stringify(combination)) {
+          multipleAnswers = true;
+          break;
+        }
+      }
+    }
+  
+    if (multipleAnswers) {
+      console.log('multiple answers');
+    } else if (foundCombination) {
+      console.log(foundCombination.join(' '));
+    } else {
+      console.log('no answer');
+    }
+  }
 
-
+  findLuckyCombination(numberedArray);
 });
