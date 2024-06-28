@@ -128,3 +128,9 @@ const numbers = lines.slice(1).map(Number);
 findLuckyCombination(numbers);
 
 ```
+
++ [ビット論理積 (&)](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Bitwise_AND)
++ [左シフト (<<)](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Left_shift)
++ [ビット演算を使ったUI表示判定実践 with React](https://zenn.dev/mssknd/articles/c1c61846b35389)
++ [JavaScriptでフラグをビットで管理する～複数の状態フラグを少ない容量で管理](https://www.marketechlabo.com/bit-flags/)
++ [ビット演算 (bit 演算) の使い方を総特集！ 〜 マスクビットから bit DP まで 〜](https://qiita.com/drken/items/7c6ff2aa4d8fce1c9361)
