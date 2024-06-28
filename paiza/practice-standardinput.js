@@ -186,7 +186,7 @@ reader.on('close', () => {
 
   // 数値の上限下限判定（単一の値の場合）
   const isOutOfRange = (data, min, max) => {
-    const result = data => !(data >= min && data <= max);
+    const result = !(data >= min && data <= max);
     return result;
   }
 

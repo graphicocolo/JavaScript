@@ -16,6 +16,7 @@
 
 
 ```
+// 再帰関数ver
 function findLuckyCombination(n, numbers) {
   // numbers 入力として与えられた自然数の配列です。ここから組み合わせを見つけます。
   let results = [];
@@ -72,4 +73,58 @@ const n = parseInt(lines[0], 10);
 const numbers = lines.slice(1).map(Number);
 
 findLuckyCombination(n, numbers);
+```
+
+```
+// ビットマスクver
+function findLuckyCombination(numbers) {
+  const targetSum = 777;
+  const n = numbers.length;
+  let foundCombination = null;
+  let multipleAnswers = false;
+
+  // Iterate through all possible combinations using bitmask
+  for (let i = 1; i < (1 << n); i++) {
+    let sum = 0;
+    let combination = [];
+
+    for (let j = 0; j < n; j++) {
+      if (i & (1 << j)) {
+        sum += numbers[j];
+        combination.push(numbers[j]);
+      }
+    }
+
+    if (sum === targetSum) {
+      combination.sort((a, b) => a - b);
+      if (foundCombination === null) {
+        foundCombination = combination;
+      } else if (JSON.stringify(foundCombination) !== JSON.stringify(combination)) {
+        multipleAnswers = true;
+        break;
+      }
+    }
+  }
+
+  if (multipleAnswers) {
+    console.log('multiple answers');
+  } else if (foundCombination) {
+    console.log(foundCombination.join(' '));
+  } else {
+    console.log('no answer');
+  }
+}
+
+// 入力の処理
+const input = `4
+333
+222
+444
+666`;
+const lines = input.trim().split('\n');
+const n = parseInt(lines[0], 10);
+const numbers = lines.slice(1).map(Number);
+
+findLuckyCombination(numbers);
+
 ```
