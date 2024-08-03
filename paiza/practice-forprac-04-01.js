@@ -59,8 +59,18 @@ reader.on('line', (line) => {
 reader.on('close', () => {
 
   // 1. 必要値定義 ----------
+
   // 空判定のための値
   const firstLineVar = lines[0];
+
+  // 花言葉ペア
+  const pairList = [
+    { pairInput: 'rose', pairOutput: 'I love you' },
+    { pairInput: 'cosmos', pairOutput: 'harmony' },
+    { pairInput: 'tulip', pairOutput: 'perfect lover' },
+    { pairInput: 'hydrangea', pairOutput: 'heartlessness' },
+    { pairInput: 'jasmine', pairOutput: 'amiability' },
+  ];
 
   // 2. 判定関数 ----------
 
@@ -71,9 +81,10 @@ reader.on('close', () => {
   const isEmptyValue = data => data === '';
 
   // 入力されたワードが決まったものであるかどうか
-  const isNotInArray = (array, value) => {
-    return !array.includes(value);
-  }
+  const isNotInPair = (input) => {
+    const isValid = pairList.some(pair => pair.pairInput === input);
+    return !isValid;
+  };
 
   // 3. 条件判定関数 ----------
   const validateInput = (lines, firstLineVar) => {
@@ -85,8 +96,7 @@ reader.on('close', () => {
 
     // アラート表示
     // （入力されたワードが決まったものではない場合）
-    const array = ['rose', 'cosmos', 'tulip', 'hydrangea', 'jasmine'];
-    if (isNotInArray(array, firstLineVar)) return '正しい値を入力してください';
+    if (isNotInPair(firstLineVar)) return '正しい値を入力してください';
 
     return ''; // 全ての条件を満たす場合は空文字を返す
   }
@@ -97,24 +107,14 @@ reader.on('close', () => {
   const errorMessage = validateInput(lines, firstLineVar);
   if (errorMessage !== '') return console.log(errorMessage);
 
-  switch (firstLineVar) {
-    case 'rose':
-      console.log('I love you');
-      break;
-    case 'cosmos':
-      console.log('harmony');
-      break;
-    case 'tulip':
-      console.log('perfect lover');
-      break;
-    case 'hydrangea':
-      console.log('heartlessness');
-      break;
-    case 'jasmine':
-      console.log('amiability');
-      break;
-    default:
-      console.log('正しい値を入力してください');
+  const getFlowerWord = (inputVar) => {
+    if (pairList.some(i => i.pairInput === inputVar)) {
+      const flowerWord = pairList.find(i => i.pairInput === inputVar).pairOutput;
+      return flowerWord;
+    } else {
+      return '正しい値を入力してください';
+    }
   }
-
+  console.log(getFlowerWord(firstLineVar));
+  
 });
