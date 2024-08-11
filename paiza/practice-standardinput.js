@@ -157,11 +157,24 @@ reader.on('close', () => {
 
   // 3. 判定関数 ----------
 
+  // paiza では、1行目のみが空の場合は undefined を返す
+  // 1行目と2行目が空の場合は [''] を返す
+  // 1行目と2行目と3行目が空の場合は ['', ''] を返す
+
   // 1行目の値が空かどうか（lines[0]）
   const isEmpty = data => data === undefined && true;
 
+  // 1行目の値が空かどうか（lines）
+  const isArrayEmpty = arr => arr.length === 0 && true;
+
   // 空文字かどうか
   const isEmptyValue = data => data === '';
+
+  // 配列の中身が空かどうか
+  const isArrayOfEmptyTwoLines = arr => arr.every(item => item === '');
+
+  // 1行目のみ入力しているかどうか（2行以上入力しているかどうか）
+  const isArrayOfMoreTwoLines = arr => arr.length > 1;
 
   // 英字
   // const isAlp = data => data.match(/^[A-Za-z]*$/);
