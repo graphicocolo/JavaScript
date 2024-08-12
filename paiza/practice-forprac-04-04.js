@@ -57,9 +57,7 @@ reader.on('close', () => {
   // 1行目と2行目と3行目が空の場合は ['', ''] を返す
 
   // 1行目の値が空かどうか（lines[0]）
-  // 論理積（```&&```）を使った式では、左辺が false の場合は左辺を返し、右辺を評価しない
-  // 左辺が true の場合は右辺を返す（左辺が false の場合は左辺を返す）
-  const isEmpty = data => data === undefined && true;
+  const isEmpty = data => data === undefined;
 
   // 空白文字が入っているかどうか
   const hasWhitespace = str => /[\s\u3000]/.test(str);
@@ -73,15 +71,11 @@ reader.on('close', () => {
 
   // 文字数の上限下限判定（単一の値の場合）
   const stringIsOutOfRange = (str, min, max) => {
-    const result = !(str.length >= min && str.length <= max) && true;
-    return result;
+    return !(str.length >= min && str.length <= max);
   }
 
   // 英字かどうか
-  const isNotAlp = (data) => {
-    // const result = removeWhitespace(data);
-    return !/^[A-Za-z]*$/.test(data)
-  };
+  const isNotAlp = data => !/^[A-Za-z]*$/.test(data);
 
   // 4. 条件判定関数 ----------
   const validateInput = (lines, firstLineVar) => {
