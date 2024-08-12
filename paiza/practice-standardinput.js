@@ -155,6 +155,11 @@ reader.on('close', () => {
     return newArray;
   }
 
+  // 入力値から空白(半角・全角)を削除
+  const removeWhitespace = (str) => {
+    return str.replace(/[\s\u3000]+/g, '');
+  }
+
   // 3. 判定関数 ----------
 
   // paiza では、1行目のみが空の場合は undefined を返す
@@ -162,19 +167,31 @@ reader.on('close', () => {
   // 1行目と2行目と3行目が空の場合は ['', ''] を返す
 
   // 1行目の値が空かどうか（lines[0]）
+  // 論理積（```&&```）を使った式では、左辺が false の場合は左辺を返し、右辺を評価しない
+  // 左辺が true の場合は右辺を返す（左辺が false の場合は左辺を返す）
   const isEmpty = data => data === undefined && true;
 
   // 1行目の値が空かどうか（lines）
-  const isArrayEmpty = arr => arr.length === 0 && true;
+  // const isArrayEmpty = arr => arr.length === 0 && true;
 
   // 空文字かどうか
-  const isEmptyValue = data => data === '';
+  const isEmptyStringValue = data => data === '';
+
+  // 空白文字が入っているかどうか
+  const hasWhitespace = str => /[\s\u3000]/.test(str);
 
   // 配列の中身が空かどうか
-  const isArrayOfEmptyTwoLines = arr => arr.every(item => item === '');
+  // 1行目未入力のまま改行し、2行目のみ入力値がある場合アラート表示
+  const isArrayOfEmptyElm = arr => arr.every(item => item === '');
 
-  // 1行目のみ入力しているかどうか（2行以上入力しているかどうか）
-  const isArrayOfMoreTwoLines = arr => arr.length > 1;
+  // 単数行入力のところ複数行入力しているかどうか（1行目で改行）
+  // 空文字かどうか　が判定条件に入っているならば記述不要
+  // const isArrayOfMoreTwoLines = arr => arr[0] === '' && arr.length === 1;
+  // const isArrayOfMoreTwoLines = arr => arr.length === 1;
+
+  // 単数行入力のところ複数行入力しているかどうか（2行目以降で改行）
+  // const isArrayOfMoreThreeLines = arr => isArrayOfEmptyElm && arr.length > 1;
+  const isArrayOfMoreThreeLines = arr => arr.length > 1;
 
   // 英字
   // const isAlp = data => data.match(/^[A-Za-z]*$/);
@@ -206,6 +223,12 @@ reader.on('close', () => {
   // 数値の上限下限判定（配列の場合）
   const arrayIsOutOfRange = (array, min, max) => {
     const result = !(array.every(item => item >= min && item <= max));
+    return result;
+  }
+
+  // 文字数の上限下限判定（単一の値の場合）
+  const stringIsOutOfRange = (str, min, max) => {
+    const result = !(str.length >= min && str.length <= max) && true;
     return result;
   }
 
