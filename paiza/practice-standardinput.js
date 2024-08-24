@@ -214,12 +214,16 @@ reader.on('close', () => {
   // const isNotNumber = data => !/^[0-9]*$/.test(data);
   const isNotNumber = data => !/^\d+$/.test(data);
 
+  // 数字のみ、1から始まる、長さが1～1000桁の範囲
+  const isNotNumberDigit = data => !/^[1-9][0-9]{0,999}$/.test(data);
+
   // 1行目に入力された数字と、2行目以降の文字が入力されている行数が合っているかどうか
   const isNotLinesMatch = array => !(Number(array[0]) === Number(array.length - 1));
 
   // 数値の上限下限判定（単一の値の場合）
   const isOutOfRange = (data, min, max) => {
-    const result = !(data >= min && data <= max);
+    const convertData = Number(data);
+    const result = !(convertData >= min && convertData < max);
     return result;
   }
 
